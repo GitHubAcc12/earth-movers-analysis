@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./css/stylesheet.css" />
+  </head>
+  <body>
+    <div id="container">
+      <h1>Grade Data Analysis</h1>
+      <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+      </div>
+      <div id="config-container">
+        <table id="config-table">
+          <tr>
+            <td>Number of Students</td>
+            <td>Number of Grades</td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                id="number-students"
+                type="range"
+                value="30"
+                min="2"
+                max="100"
+                step="1"
+                class="slider"
+                oninput="this.nextElementSibling.value = parseInt(this.value);"
+              />
+              <output>30</output>
+            </td>
+            <td>
+              <input
+                id="number-grades"
+                type="range"
+                value="5"
+                min="2"
+                max="10"
+                step="1"
+                class="slider"
+                oninput="this.nextElementSibling.value = parseInt(this.value);"
+              />
+              <output>5</output>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <script src="./js/analysis.js"></script>
+  </body>
+</html>
