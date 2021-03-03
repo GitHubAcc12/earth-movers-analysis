@@ -13,3 +13,10 @@ function initialize() {
   }
 
   initialize();
+
+  function getCompositions() {
+    console.log("in analysis");
+    const n = document.getElementById("number-students-output").value;
+    const k = document.getElementById("number-grades-output").value;
+    compositions(parseInt(n), parseInt(k));
+  }

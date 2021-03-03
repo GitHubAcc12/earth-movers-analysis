@@ -4,48 +4,55 @@
     <link rel="stylesheet" href="./css/stylesheet.css" />
   </head>
   <body>
-    <div id="container">
-      <h1>Grade Data Analysis</h1>
-      <div id="canvas-container">
-        <canvas id="canvas"></canvas>
-      </div>
-      <div id="config-container">
-        <table id="config-table">
-          <tr>
-            <td>Number of Students</td>
-            <td>Number of Grades</td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                id="number-students"
-                type="range"
-                value="30"
-                min="2"
-                max="100"
-                step="1"
-                class="slider"
-                oninput="this.nextElementSibling.value = parseInt(this.value);"
-              />
-              <output>30</output>
-            </td>
-            <td>
-              <input
-                id="number-grades"
-                type="range"
-                value="5"
-                min="2"
-                max="10"
-                step="1"
-                class="slider"
-                oninput="this.nextElementSibling.value = parseInt(this.value);"
-              />
-              <output>5</output>
-            </td>
-          </tr>
-        </table>
-      </div>
+    <h1>Grade Data Analysis</h1>
+    <div id="canvas-container">
+      <canvas id="canvas"></canvas>
     </div>
+    <div id="config-container">
+      <table id="config-table">
+        <tr>
+          <td>Number of Students</td>
+          <td>Number of Grades</td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              id="number-students"
+              type="range"
+              value="30"
+              min="2"
+              max="100"
+              step="1"
+              class="slider"
+              oninput="document.getElementById('number-students-output').value = parseInt(this.value);"
+            />
+          </td>
+          <td>
+            <input
+              id="number-grades"
+              type="range"
+              value="5"
+              min="2"
+              max="10"
+              step="1"
+              class="slider"
+              oninput="document.getElementById('number-grades-output').value = parseInt(this.value);"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><output id="number-students-output">30</output></td>
+          <td><output id="number-grades-output">5</output></td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="button-wrapper">
+      <button id="analyze-button" onclick="getCompositions();">Analyze</button>
+    </div>
+
+    <!-- Including scripts necessary for analysis -->
+    <script src="./js/compositions.js"></script>
     <script src="./js/analysis.js"></script>
   </body>
 </html>

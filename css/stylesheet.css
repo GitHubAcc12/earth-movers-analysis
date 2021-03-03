@@ -1,7 +1,4 @@
-html, body  {
-    margin: 5px;
-    padding: 5px;
-}
+
 
 body {
     width: 100%;
@@ -9,13 +6,13 @@ body {
     background-color: aqua;
 }
 
-.canvas {
+#canvas {
     background-color: azure;
+    text-align: center;
 }
 
-.container {
-    align-items: center;
-    background-color: blue;
+#canvas-container {
+    text-align: center;
 }
 
 h1 {
@@ -25,4 +22,9 @@ h1 {
 table  { 
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+}
+
+#button-wrapper {
+    text-align: center;
 }
