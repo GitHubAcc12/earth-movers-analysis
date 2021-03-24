@@ -7,7 +7,8 @@ function recCompositions(n, k, current, all_comps) {
       if (current.length < k) {
         currentCopy = [...current];
         currentCopy.push(i);
-        console.log(currentCopy)
+        console.log(currentCopy);
+        console.log(sum(currentCopy));
         recCompositions(n, k, currentCopy, all_comps);
       }
     }
