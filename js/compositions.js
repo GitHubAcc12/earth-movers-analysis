@@ -24,6 +24,17 @@ function compositions(n, k) {
   console.log('done');
 }
 
+function pingBackend() {
+  const request = new XMLHttpRequest();
+  const url = "http://localhost:8080/ping";
+  request.open("GET", url);
+  request.send();
+
+  request.onreadystatechange = e => {
+    console.log(request.responseText);
+  }
+}
+
 function sum(arr) {
   return arr.reduce((v1, v2) => v1 + v2, 0);
 }
