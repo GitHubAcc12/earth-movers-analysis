@@ -14,16 +14,15 @@ function resizeCanvas() {
 }
 
 function thresholdSlideInput(val) {
-  document.getElementById('distance-output').value = parseFloat(val)
-  if(dist_matrix != null) {
+  document.getElementById("distance-output").value = parseFloat(val);
+  if (dist_matrix != null) {
     plotGraph(dist_matrix);
   }
-  
 }
 
 //initialize();
 
-function getCompsFromBackend(n, k) {
+function getCompositionsAndDistMatrixFromBackend(n, k) {
   const params = "students=" + n + "&grades=" + k;
   const url = "https://earth-mover-310304.uc.r.appspot.com/emd";
   fetch(url, {
@@ -38,7 +37,7 @@ function getCompsFromBackend(n, k) {
 }
 
 function plotGraph(dmatrix) {
-  dist_matrix = dmatrix
+  dist_matrix = dmatrix;
   console.log("Received Response, starting plot");
   let distance_matrix = JSON.parse(dmatrix);
   let threshold = document.getElementById("distance").value;
@@ -95,15 +94,15 @@ function getEdgesDS(dmatrix, threshold) {
   return new vis.DataSet(edges);
 }
 
-function getCompositions() {
+function computeDistributionsAndDistanceMatrix() {
   let n = document.getElementById("number-students").value;
   let k = document.getElementById("number-grades").value;
-  console.log("Computing weak compositions of " + n + " into " + k + " parts.");
-  getCompsFromBackend(n, k);
-  /*
-    console.log("in analysis");
-    const n = document.getElementById("number-students-output").value;
-    const k = document.getElementById("number-grades-output").value;
-    compositions(parseInt(n), parseInt(k));
-    */
+  console.log(
+    "As distributions, computing all weak compositions of " +
+      n +
+      " into " +
+      k +
+      " parts."
+  );
+  getCompositionsAndDistMatrixFromBackend(n, k);
 }
