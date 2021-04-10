@@ -1,5 +1,6 @@
 const canvas = document.getElementById("graph-container");
 let network = null;
+let dist_matrix = null;
 
 function initialize() {
   resizeCanvas();
@@ -10,6 +11,14 @@ function resizeCanvas() {
   canvas.width = (3 * window.innerWidth) / 4;
   canvas.height = window.innerHeight / 2;
   canvas.setAttribute("align", "center");
+}
+
+function thresholdSlideInput(val) {
+  document.getElementById('distance-output').value = parseFloat(val)
+  if(dist_matrix != null) {
+    plotGraph(dist_matrix);
+  }
+  
 }
 
 //initialize();
@@ -29,6 +38,7 @@ function getCompsFromBackend(n, k) {
 }
 
 function plotGraph(dmatrix) {
+  dist_matrix = dmatrix
   console.log("Received Response, starting plot");
   let distance_matrix = JSON.parse(dmatrix);
   let threshold = document.getElementById("distance").value;
