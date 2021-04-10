@@ -14,8 +14,29 @@ function initialize() {
 
   initialize();
 
+
+
+  function getCompsFromBackend(n, k) {
+    const params = "students="+n+"&grades="+k;
+    const url = "http://localhost:8080/ping";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        "students": n,
+        "grades": k
+      })
+    }).then(
+      response => response.text()
+    ).then(
+      html => console.log(html)
+    );
+  }
+  
   function getCompositions() {
-    pingBackend();
+    let n = document.getElementById('number-students').value;
+    let k = document.getElementById('number-grades').value;
+    console.log("Computing weak compositions of " + n + " into " + k + " parts.");
+    getCompsFromBackend(n, k);
     /*
     console.log("in analysis");
     const n = document.getElementById("number-students-output").value;
