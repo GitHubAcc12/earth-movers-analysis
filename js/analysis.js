@@ -16,7 +16,7 @@ function resizeCanvas() {
 
 function getCompsFromBackend(n, k) {
   const params = "students=" + n + "&grades=" + k;
-  const url = "https://githubacc12.github.io/earth-movers-backend/emd";
+  const url = "https://earth-mover-310304.uc.r.appspot.com/emd";
   fetch(url, {
     method: "POST",
     body: JSON.stringify({
