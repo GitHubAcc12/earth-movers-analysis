@@ -1,28 +1,37 @@
-
+html {
+    width: 100%;
+    margin: 0;
+}
 
 body {
     width: 100%;
     height: auto;
-    background-color: aqua;
+    background-color: #191c1a;
+    margin: 0;
 }
 
-#canvas {
-    background-color: azure;
+#graph-container {
     text-align: center;
-}
-
-#canvas-container {
-    text-align: center;
+    background-image: radial-gradient(ellipse, #0b0c0b 0, #191c1a);
+    width: 800px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1 {
     text-align: center;
+    color: #ffebcd;
 }
 
 table  { 
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+td {
+    color: #ffebcd;
 }
 
 #button-wrapper {
