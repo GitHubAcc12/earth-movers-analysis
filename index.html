@@ -2,13 +2,12 @@
 <html>
   <head>
     <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous"
-  />
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./css/stylesheet.css" />
-
   </head>
   <body>
     <h1>Grade Data Analysis</h1>
@@ -39,7 +38,7 @@
               type="range"
               value="5"
               min="3"
-              max="5"
+              max="10"
               step="1"
               class="slider"
               oninput="document.getElementById('number-grades-output').value = parseInt(this.value);"
@@ -54,7 +53,7 @@
               max="1.000"
               step="0.001"
               class="slider"
-              oninput="document.getElementById('distance-output').value = parseFloat(this.value);"
+              oninput="thresholdSlideInput(this.value);"
             />
           </td>
         </tr>
@@ -67,7 +66,14 @@
     </div>
 
     <div id="button-wrapper">
-      <button type="button" class="btn btn btn-dark" id="analyze-button" onclick="getCompositions();">Analyze</button>
+      <button
+        type="button"
+        class="btn-font btn btn btn-dark"
+        id="analyze-button"
+        onclick="computeDistributionsAndDistanceMatrix();"
+      >
+        Analyze
+      </button>
     </div>
 
     <!-- Including scripts necessary for analysis -->
@@ -75,7 +81,6 @@
       type="text/javascript"
       src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
     ></script>
-    <script src="./js/compositions.js"></script>
     <script src="./js/analysis.js"></script>
   </body>
 </html>
