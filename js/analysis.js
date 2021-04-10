@@ -51,8 +51,11 @@ function plotGraph(dmatrix) {
       smooth: false,
     },
     nodes: {
-      color: "#ffebcd"
-    }
+      color: "#ffebcd",
+      shapeProperties: {
+        interpolation: false,
+      },
+    },
   };
   if (network !== null) {
     network.destroy();

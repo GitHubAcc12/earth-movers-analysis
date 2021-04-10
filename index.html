@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  />
     <link rel="stylesheet" href="./css/stylesheet.css" />
+
   </head>
   <body>
     <h1>Grade Data Analysis</h1>
-    <div id="graph-container">
-
-    </div>
+    <div id="graph-container"></div>
     <div id="config-container">
       <table id="config-table">
         <tr>
@@ -62,7 +67,7 @@
     </div>
 
     <div id="button-wrapper">
-      <button id="analyze-button" onclick="getCompositions();">Analyze</button>
+      <button type="button" class="btn btn btn-dark" id="analyze-button" onclick="getCompositions();">Analyze</button>
     </div>
 
     <!-- Including scripts necessary for analysis -->
