@@ -93,6 +93,53 @@ function getEdgesDS(dmatrix, threshold) {
   }
   return new vis.DataSet(edges);
 }
+/* TODO save performance: merge close nodes
+function filterDistanceMatrix(dmatrix) {
+  // Filter by degree: If out of the n nodes, one has a
+  // degree of more than n/4, merge it with all 
+  // directly connected vertices (once!)
+
+  const threshold = document.getElementById("distance").value;
+  const min_dist = threshold / 2;
+
+  let new_dm = [];
+  
+  for(let i = 0; i < dmatrix.length; ++i) {
+    let new_row = [];
+    for (let j = i+1; j < dmatrix[i].length; ++j) {
+      if(dmatrix[i][j] < min_dist) {
+        for(let k = 0; k < dmatrix[i].length; ++k) {
+          new_row.push(Math.min(dmatrix[i][k], dmatrix[j][k]));
+        }
+      } else {
+        new_row = dmatrix[i];
+      }
+    }
+    new_dm.push(new_row);
+  }
+
+  // Get rid of i and j! j > i always
+
+  dmatrix.splice(j, 1);
+  dmatrix.splice(i, 1);
+
+
+
+  return new_dm;
+}
+
+
+function min_dist_exists(dmatrix, min_dist) {
+  for(let i = 0; i < dmatrix.length; ++i) {
+    for(let j = i+1; j < dmatrix[i].length; ++j) {
+      if(dmatrix[i][j] < min_dist) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+*/
 
 function computeDistributionsAndDistanceMatrix() {
   let n = document.getElementById("number-students").value;
