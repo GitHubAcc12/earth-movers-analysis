@@ -10,6 +10,11 @@ body {
   margin: 0;
 }
 
+#center-wrapper {
+  text-align: center;
+  color: #ffffff;
+  padding: 20px;
+}
 
 
 #graph-container {
@@ -23,7 +28,7 @@ body {
 
 h1 {
   text-align: center;
-  color: #ffebcd;
+  color: #ffffff;
 }
 
 table {
@@ -33,7 +38,7 @@ table {
 }
 
 td {
-  color: #ffebcd;
+  color: #ffffff;
   padding: 0 15px;
 }
 
@@ -42,13 +47,14 @@ td {
 }
 
 .btn-font {
-  color: #ffebcd;
+  color: #ffffff;
 }
 
+#analysis-wrapper {
+  visibility: hidden;
+}
 
-
-
-/* Custom Range starting here */
+/* START Custom Ranges */
 input[type="range"] {
     width: 100%;
     margin: 3.3px 0;
@@ -70,7 +76,7 @@ input[type="range"] {
     margin-top: -3.5px;
     width: 15px;
     height: 15px;
-    background: #ffebcd;
+    background: #ffffff;
     border: 1px solid #000000;
     border-radius: 3px;
     cursor: pointer;
@@ -137,3 +143,6 @@ input[type="range"] {
       /*Edge starts the margin from the thumb, not the track as other browsers do*/
     }
   }
+
+  /* END Custom Ranges */
+
