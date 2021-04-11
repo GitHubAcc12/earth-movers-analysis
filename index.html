@@ -86,15 +86,35 @@
       </table>
     </div>
 
+    <div id="center-wrapper">
+      Or upload your own data:
+      <input type="file" id="file-upload" />
+
+    </div>
+
+
     <div id="button-wrapper">
       <button
         type="button"
         class="btn-font btn btn btn-dark"
         id="analyze-button"
-        onclick="computeDistributionsAndDistanceMatrix();"
+        onclick="analyze();"
       >
         Analyze
       </button>
+    </div>
+
+    <div id="analysis-wrapper">
+      <table>
+        <tr>
+          <td>Mean</td>
+          <td>Median</td>
+        </tr>
+        <tr>
+          <td><output id="mean-output"></output></td>
+          <td><output id="median-output"></output></td>
+        </tr>
+      </table>
     </div>
 
     <!-- Including scripts necessary for analysis -->

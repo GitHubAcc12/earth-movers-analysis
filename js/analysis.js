@@ -24,7 +24,7 @@ function thresholdSlideInput(val) {
 //initialize();
 
 function getCompositionsAndDistMatrixFromBackend(n, k) {
-  const url = URL + "emd";
+  const url = URL + "compositions";
   fetch(url, {
     method: "POST",
     body: JSON.stringify({
@@ -36,14 +36,24 @@ function getCompositionsAndDistMatrixFromBackend(n, k) {
     .then((html) => plotGraph(html));
 }
 
+function getDistanceMatrixFromDataFromBackend(grades_list) {
+  const url = URL + "analyzeData";
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      data: grades_list,
+    }),
+  })
+    .then((response) => response.text())
+    .then((html) => plotGraph(html));
+}
+
 function plotGraph(dmatrix) {
   dist_matrix = dmatrix;
-  console.log("Received Response, starting plot");
   let distance_matrix = JSON.parse(dmatrix);
   let threshold = document.getElementById("distance").value;
   let nodes = getNodesDS(distance_matrix);
   let edges = getEdgesDS(distance_matrix, threshold);
-  console.log("Computed nodes and edges.");
   let data = {
     nodes: nodes,
     edges: edges,
@@ -69,7 +79,6 @@ function plotGraph(dmatrix) {
   if (network !== null) {
     network.destroy();
   }
-  console.log("Starting to initialize network.");
   network = new vis.Network(canvas, data, options);
   network.stabilize(2000);
 }
@@ -142,8 +151,8 @@ function min_dist_exists(dmatrix, min_dist) {
 */
 
 function computeDistributionsAndDistanceMatrix() {
-  let n = document.getElementById("number-students").value;
-  let k = document.getElementById("number-grades").value;
+  const n = document.getElementById("number-students").value;
+  const k = document.getElementById("number-grades").value;
   console.log(
     "As distributions, computing all weak compositions of " +
       n +
@@ -152,4 +161,18 @@ function computeDistributionsAndDistanceMatrix() {
       " parts."
   );
   getCompositionsAndDistMatrixFromBackend(n, k);
+}
+
+function analyze() {
+  const selectedFile = document.getElementById("file-upload").files;
+  if (selectedFile === null) {
+    computeDistributionsAndDistanceMatrix();
+  } else {
+    let reader = new FileReader();
+    reader.readAsText(selectedFile[0]);
+    reader.onload = function () {
+      const inputData = reader.result;
+      getDistanceMatrixFromDataFromBackend(inputData);
+    };
+  }
 }

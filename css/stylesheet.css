@@ -10,6 +10,11 @@ body {
   margin: 0;
 }
 
+#center-wrapper {
+  text-align: center;
+  color: #ffffff;
+  padding: 20px;
+}
 
 
 #graph-container {
@@ -45,7 +50,9 @@ td {
   color: #ffffff;
 }
 
-
+#analysis-wrapper {
+  visibility: hidden;
+}
 
 /* START Custom Ranges */
 input[type="range"] {
