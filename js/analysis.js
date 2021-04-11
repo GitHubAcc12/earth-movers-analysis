@@ -164,12 +164,12 @@ function computeDistributionsAndDistanceMatrix() {
 }
 
 function analyze() {
-  const selectedFile = document.getElementById("file-upload").files;
-  if (selectedFile === null) {
+  const selectedFiles = document.getElementById("file-upload").files;
+  if (selectedFiles.length === 0) {
     computeDistributionsAndDistanceMatrix();
   } else {
     let reader = new FileReader();
-    reader.readAsText(selectedFile[0]);
+    reader.readAsText(selectedFiles[0]);
     reader.onload = function () {
       const inputData = reader.result;
       getDistanceMatrixFromDataFromBackend(inputData);
