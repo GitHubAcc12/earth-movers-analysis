@@ -1,6 +1,7 @@
 const canvas = document.getElementById("graph-container");
 let network = null;
 let dist_matrix = null;
+const URL = "https://earth-mover-310304.uc.r.appspot.com/";
 
 function initialize() {
   resizeCanvas();
@@ -23,8 +24,7 @@ function thresholdSlideInput(val) {
 //initialize();
 
 function getCompositionsAndDistMatrixFromBackend(n, k) {
-  const params = "students=" + n + "&grades=" + k;
-  const url = "https://earth-mover-310304.uc.r.appspot.com/emd";
+  const url = URL + "emd";
   fetch(url, {
     method: "POST",
     body: JSON.stringify({
@@ -60,7 +60,7 @@ function plotGraph(dmatrix) {
       smooth: false,
     },
     nodes: {
-      color: "#ffebcd",
+      color: "#ffffff",
       shapeProperties: {
         interpolation: false,
       },
