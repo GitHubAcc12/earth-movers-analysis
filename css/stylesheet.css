@@ -52,6 +52,7 @@ td {
 
 #analysis-wrapper {
   visibility: hidden;
+  padding: 20px;
 }
 
 /* START Custom Ranges */
