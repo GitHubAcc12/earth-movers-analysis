@@ -51,11 +51,14 @@ function getDistanceMatrixFromDataFromBackend(grades_list) {
 function plotGraph(dmatrix) {
   dist_matrix = JSON.parse(dmatrix);
 
+  // Show mean and median
   const wrapper = document.getElementById("analysis-wrapper");
   wrapper.style.visibility = "visible";
   const mean_output = document.getElementById("mean-output");
   const median_output = document.getElementById("median-output");
-  mean_output.value = meanEmd(dist_matrix);
+  mean_output.value = Math.round(meanEmd(dist_matrix) * 1000) / 1000;
+  median_output.value = Math.round(medianEmd(dist_matrix) * 1000) / 1000;
+
   let distance_matrix = JSON.parse(dmatrix);
   let threshold = document.getElementById("distance").value;
   let nodes = getNodesDS(distance_matrix);
@@ -87,6 +90,31 @@ function plotGraph(dmatrix) {
   }
   network = new vis.Network(canvas, data, options);
   network.stabilize(2000);
+}
+
+function medianEmd(dmatrix) {
+  // only take upper triangular
+  let val_list = [];
+  for (let i = 0; i < dmatrix.length; ++i) {
+    for (let j = i + 1; j < dmatrix[i].length; ++j) {
+      val_list.push(dmatrix[i][j]);
+    }
+  }
+  return median(val_list);
+}
+
+function median(values) {
+  if (values.length === 0) return 0;
+
+  values.sort(function (a, b) {
+    return a - b;
+  });
+
+  var half = Math.floor(values.length / 2);
+
+  if (values.length % 2) return values[half];
+
+  return (values[half - 1] + values[half]) / 2.0;
 }
 
 function getNodesDS(dmatrix) {
