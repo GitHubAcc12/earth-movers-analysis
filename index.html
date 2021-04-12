@@ -76,7 +76,17 @@
         <tr>
           <td><output id="number-students-output">4</output></td>
           <td><output id="number-grades-output">5</output></td>
-          <td><output id="distance-output">0.100</output></td>
+          <td>
+            <input
+              type="number"
+              min="0"
+              max="1"
+              id="distance-output"
+              step="0.001"
+              value="0.100"
+              oninput="thresholdNumberInput(this.value);"
+            />
+          </td>
         </tr>
       </table>
     </div>
@@ -84,9 +94,7 @@
     <div id="center-wrapper">
       Or upload your own data:
       <input type="file" id="file-upload" />
-
     </div>
-
 
     <div id="button-wrapper">
       <button

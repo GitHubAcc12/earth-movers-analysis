@@ -1,7 +1,7 @@
 const canvas = document.getElementById("graph-container");
 let network = null;
 let dist_matrix = null;
-const URL = "http://localhost:8080/"; //"https://earth-mover-310304.uc.r.appspot.com/";
+const URL = "https://earth-mover-310304.uc.r.appspot.com/";
 
 function initialize() {
   resizeCanvas();
@@ -16,6 +16,13 @@ function resizeCanvas() {
 
 function thresholdSlideInput(val) {
   document.getElementById("distance-output").value = parseFloat(val);
+  if (dist_matrix != null) {
+    plotGraph(dist_matrix);
+  }
+}
+
+function thresholdNumberInput(val) {
+  document.getElementById("distance").value = parseFloat(val);
   if (dist_matrix != null) {
     plotGraph(dist_matrix);
   }
