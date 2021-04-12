@@ -49,7 +49,13 @@ function getDistanceMatrixFromDataFromBackend(grades_list) {
 }
 
 function plotGraph(dmatrix) {
-  dist_matrix = dmatrix;
+  dist_matrix = JSON.parse(dmatrix);
+
+  const wrapper = document.getElementById("analysis-wrapper");
+  wrapper.style.visibility = "visible";
+  const mean_output = document.getElementById("mean-output");
+  const median_output = document.getElementById("median-output");
+  mean_output.value = meanEmd(dist_matrix);
   let distance_matrix = JSON.parse(dmatrix);
   let threshold = document.getElementById("distance").value;
   let nodes = getNodesDS(distance_matrix);
@@ -164,6 +170,8 @@ function computeDistributionsAndDistanceMatrix() {
 }
 
 function analyze() {
+  // analyze distance matrix
+
   const selectedFiles = document.getElementById("file-upload").files;
   if (selectedFiles.length === 0) {
     computeDistributionsAndDistanceMatrix();
@@ -175,4 +183,14 @@ function analyze() {
       getDistanceMatrixFromDataFromBackend(inputData);
     };
   }
+}
+
+function meanEmd(dmatrix) {
+  let val = 0;
+  for (let i = 0; i < dmatrix.length; ++i) {
+    for (let j = i + 1; j < dmatrix[i].length; ++j) {
+      val += 2 * dmatrix[i][j];
+    }
+  }
+  return val / (dmatrix.length * dmatrix[0].length);
 }
