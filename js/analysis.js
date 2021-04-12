@@ -1,7 +1,7 @@
 const canvas = document.getElementById("graph-container");
 let network = null;
 let dist_matrix = null;
-const URL = "https://earth-mover-310304.uc.r.appspot.com/";
+const URL = "http://localhost:8080/"; //"https://earth-mover-310304.uc.r.appspot.com/";
 
 function initialize() {
   resizeCanvas();
@@ -49,8 +49,9 @@ function getDistanceMatrixFromDataFromBackend(grades_list) {
 }
 
 function plotGraph(dmatrix) {
-  dist_matrix = JSON.parse(dmatrix);
-
+  if (dist_matrix === null) {
+    dist_matrix = JSON.parse(dmatrix);
+  }
   // Show mean and median
   const wrapper = document.getElementById("analysis-wrapper");
   wrapper.style.visibility = "visible";
@@ -59,10 +60,9 @@ function plotGraph(dmatrix) {
   mean_output.value = Math.round(meanEmd(dist_matrix) * 1000) / 1000;
   median_output.value = Math.round(medianEmd(dist_matrix) * 1000) / 1000;
 
-  let distance_matrix = JSON.parse(dmatrix);
   let threshold = document.getElementById("distance").value;
-  let nodes = getNodesDS(distance_matrix);
-  let edges = getEdgesDS(distance_matrix, threshold);
+  let nodes = getNodesDS(dist_matrix);
+  let edges = getEdgesDS(dist_matrix, threshold);
   let data = {
     nodes: nodes,
     edges: edges,
@@ -199,7 +199,7 @@ function computeDistributionsAndDistanceMatrix() {
 
 function analyze() {
   // analyze distance matrix
-
+  dist_matrix = null;
   const selectedFiles = document.getElementById("file-upload").files;
   if (selectedFiles.length === 0) {
     computeDistributionsAndDistanceMatrix();
