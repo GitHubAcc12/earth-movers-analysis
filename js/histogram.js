@@ -12,6 +12,7 @@ function clearChart() {
 
 function plotHistogram(distance_matrix) {
   clearChart();
+  document.getElementById("histogram-wrapper").style.visibility = "visible";
   chartCanvas = document.getElementById("histogram");
   let context = chartCanvas.getContext("2d");
 
@@ -23,7 +24,7 @@ function plotHistogram(distance_matrix) {
       labels: labels,
       datasets: [
         {
-          label: "Histogram of EMD Distribution",
+          label: "Number of Distribution Pairs",
           data: hist_list,
           backgroundColor: "#ffffff",
         },
@@ -41,8 +42,8 @@ function getDataFormatted(distance_matrix) {
   for (let i = 0; i < distance_matrix.length; ++i) {
     for (let j = i + 1; j < distance_matrix[i].length; ++j) {
       // Find Position in labels
-      for (let k = 1; k < labels.length; ++k) {
-        if (labels[k - 1] < distance_matrix[i][j] < labels[k]) {
+      for (let k = 0; k < labels.length - 1; ++k) {
+        if (labels[k] < distance_matrix[i][j] < labels[k + 1]) {
           // Add to last index (have to round somewhere)
           hist_list[k] += 1;
           break;
