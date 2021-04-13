@@ -58,6 +58,7 @@ function getDistanceMatrixFromDataFromBackend(grades_list) {
 function plotGraph(dmatrix) {
   if (dist_matrix === null) {
     dist_matrix = JSON.parse(dmatrix);
+    plotHistogram(dist_matrix);
   }
   // Show mean and median
   const wrapper = document.getElementById("analysis-wrapper");
@@ -229,3 +230,4 @@ function meanEmd(dmatrix) {
   }
   return val / (dmatrix.length * dmatrix[0].length);
 }
+
