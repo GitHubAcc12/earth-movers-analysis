@@ -31,7 +31,8 @@ body {
   width: 800px;
   height: 400px;
   margin: auto;
-  
+  visibility: hidden;
+  color: #ffffff;
 }
 
 #histogram {
