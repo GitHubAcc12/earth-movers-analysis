@@ -26,6 +26,20 @@ body {
   margin-right: auto;
 }
 
+#histogram-wrapper {
+  text-align: center;
+  width: 800px;
+  height: 400px;
+  margin: auto;
+  
+}
+
+#histogram {
+  background: #191c1a;
+  width: 100%;
+  height: 100%;
+}
+
 h1 {
   text-align: center;
   color: #ffffff;
