@@ -1,7 +1,11 @@
 const canvas = document.getElementById("graph-container");
 let network = null;
 let dist_matrix = null;
-const URL = "http://localhost:8080/";//"https://earth-mover-310304.uc.r.appspot.com/";
+let gpa_dist_matrix = null;
+const NODE_COLOR = "#ffffff";
+const COMBINED_EDGE_COLOR = "#e34b4b";
+const GPA_EDGE_COLOR = "#3895f2";
+const URL = "http://localhost:8080/"; //"https://earth-mover-310304.uc.r.appspot.com/";
 
 function initialize() {
   resizeCanvas();
@@ -30,13 +34,14 @@ function thresholdNumberInput(val) {
 
 //initialize();
 
-function getCompositionsAndDistMatrixFromBackend(n, k) {
+function getCompositionsAndDistMatrixFromBackend(n, k, gpa) {
   const url = URL + "compositions";
   fetch(url, {
     method: "POST",
     body: JSON.stringify({
       students: n,
       grades: k,
+      gpa: gpa, // 1 if we want to include gpa, any integer != 1 otherwise
     }),
   })
     .then((response) => response.text())
@@ -55,10 +60,11 @@ function getDistanceMatrixFromDataFromBackend(grades_list) {
     .then((html) => plotGraph(html));
 }
 
-function plotGraph(dmatrix) {
+function plotGraph(backend_response) {
   if (dist_matrix === null) {
-    let response = JSON.parse(dmatrix);
+    let response = JSON.parse(backend_response);
     dist_matrix = response.emd_distances;
+    gpa_dist_matrix = response.gpa_distances;
     plotHistogram(dist_matrix);
   }
   // Show mean and median
@@ -71,7 +77,12 @@ function plotGraph(dmatrix) {
 
   let threshold = document.getElementById("distance").value;
   let nodes = getNodesDS(dist_matrix);
-  let edges = getEdgesDS(dist_matrix, threshold);
+  let edges = null;
+  if(gpa_dist_matrix === null) {
+    edges = getEdgesDS(dist_matrix, threshold);
+  } else {
+    edges = getCombinedEdges(dist_matrix, gpa_dist_matrix, threshold)
+  }
   let data = {
     nodes: nodes,
     edges: edges,
@@ -88,7 +99,7 @@ function plotGraph(dmatrix) {
       smooth: false,
     },
     nodes: {
-      color: "#ffffff",
+      color: NODE_COLOR,
       shapeProperties: {
         interpolation: false,
       },
@@ -99,6 +110,22 @@ function plotGraph(dmatrix) {
   }
   network = new vis.Network(canvas, data, options);
   network.stabilize(2000);
+}
+
+function getCombinedEdges(dmatrix1, dmatrix2, threshold) {
+  let edges = [];
+  for (let i = 0; i < dmatrix1.length; ++i) {
+    for (let j = i + 1; j < dmatrix1[i].length; ++j) {
+      if (dmatrix1[i][j] <= threshold && dmatrix2[i][j] > threshold) {
+        edges.push({ from: i, to: j, color: NODE_COLOR });
+      } else if (dmatrix1[i][j] <= threshold && dmatrix2[i][j] <= threshold) {
+        edges.push({ from: i, to: j, color: COMBINED_EDGE_COLOR });
+      } else if (dmatrix1[i][j] > threshold && dmatrix2[i][j] <= threshold) {
+        edges.push({ from: i, to: j, color: GPA_EDGE_COLOR });
+      }
+    }
+  }
+  return new vis.DataSet(edges);
 }
 
 function medianEmd(dmatrix) {
@@ -138,8 +165,8 @@ function getEdgesDS(dmatrix, threshold) {
   let edges = [];
   for (let i = 0; i < dmatrix.length; ++i) {
     for (let j = i + 1; j < dmatrix.length; ++j) {
-      if (dmatrix[i][j] < threshold) {
-        edges.push({ from: i, to: j });
+      if (dmatrix[i][j] <= threshold) {
+        edges.push({ from: i, to: j});
       }
     }
   }
@@ -196,6 +223,7 @@ function min_dist_exists(dmatrix, min_dist) {
 function computeDistributionsAndDistanceMatrix() {
   const n = document.getElementById("number-students").value;
   const k = document.getElementById("number-grades").value;
+  const analyzeGpa = document.getElementById("analyze-gpa").checked ? 1 : 0;
   console.log(
     "As distributions, computing all weak compositions of " +
       n +
@@ -203,7 +231,7 @@ function computeDistributionsAndDistanceMatrix() {
       k +
       " parts."
   );
-  getCompositionsAndDistMatrixFromBackend(n, k);
+  getCompositionsAndDistMatrixFromBackend(n, k, analyzeGpa);
 }
 
 function analyze() {
@@ -231,4 +259,3 @@ function meanEmd(dmatrix) {
   }
   return val / (dmatrix.length * dmatrix[0].length);
 }
-

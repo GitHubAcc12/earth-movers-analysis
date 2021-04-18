@@ -22,7 +22,7 @@
           <td>Number of Students</td>
           <td>Number of Grades</td>
           <td>Distance Threshold</td>
-          <!--td>Merge Close Points</td-->
+          <td>Include GPA in Graph</td>
         </tr>
         <tr>
           <td>
@@ -61,17 +61,12 @@
               oninput="thresholdSlideInput(this.value);"
             />
           </td>
-          <!--td>
+          <td>
             <input
               type="checkbox"
-              checked
-              data-toggle="toggle"
-              data-onstyle="outline-light"
-              data-offstyle="outline-dark"
-              data-size="sm"
-              data-style="border"
+              id="analyze-gpa"
             />
-          </td-->
+          </td>
         </tr>
         <tr>
           <td><output id="number-students-output">4</output></td>
@@ -110,8 +105,8 @@
     <div id="analysis-wrapper">
       <table>
         <tr>
-          <td>Mean</td>
-          <td>Median</td>
+          <td>Mean EMD</td>
+          <td>Median EMD</td>
         </tr>
         <tr>
           <td><output id="mean-output"></output></td>
