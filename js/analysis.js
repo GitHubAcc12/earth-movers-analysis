@@ -1,7 +1,7 @@
 const canvas = document.getElementById("graph-container");
 let network = null;
 let dist_matrix = null;
-const URL = "https://earth-mover-310304.uc.r.appspot.com/";
+const URL = "http://localhost:8080/";//"https://earth-mover-310304.uc.r.appspot.com/";
 
 function initialize() {
   resizeCanvas();
@@ -57,7 +57,8 @@ function getDistanceMatrixFromDataFromBackend(grades_list) {
 
 function plotGraph(dmatrix) {
   if (dist_matrix === null) {
-    dist_matrix = JSON.parse(dmatrix);
+    let response = JSON.parse(dmatrix);
+    dist_matrix = response.emd_distances;
     plotHistogram(dist_matrix);
   }
   // Show mean and median
