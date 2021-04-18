@@ -34,14 +34,13 @@ function thresholdNumberInput(val) {
 
 //initialize();
 
-function getCompositionsAndDistMatrixFromBackend(n, k, gpa) {
+function getCompositionsAndDistMatrixFromBackend(n, k) {
   const url = URL + "compositions";
   fetch(url, {
     method: "POST",
     body: JSON.stringify({
       students: n,
       grades: k,
-      gpa: gpa, // 1 if we want to include gpa, any integer != 1 otherwise
     }),
   })
     .then((response) => response.text())
@@ -69,6 +68,7 @@ function plotGraph(backend_response) {
   }
   // Show mean and median
   const wrapper = document.getElementById("analysis-wrapper");
+  const analyzeGpa = document.getElementById("analyze-gpa").checked ? 1 : 0;
   wrapper.style.visibility = "visible";
   const mean_output = document.getElementById("mean-output");
   const median_output = document.getElementById("median-output");
@@ -78,10 +78,10 @@ function plotGraph(backend_response) {
   let threshold = document.getElementById("distance").value;
   let nodes = getNodesDS(dist_matrix);
   let edges = null;
-  if(gpa_dist_matrix === null) {
+  if (analyzeGpa === 0) {
     edges = getEdgesDS(dist_matrix, threshold);
   } else {
-    edges = getCombinedEdges(dist_matrix, gpa_dist_matrix, threshold)
+    edges = getCombinedEdges(dist_matrix, gpa_dist_matrix, threshold);
   }
   let data = {
     nodes: nodes,
@@ -166,7 +166,7 @@ function getEdgesDS(dmatrix, threshold) {
   for (let i = 0; i < dmatrix.length; ++i) {
     for (let j = i + 1; j < dmatrix.length; ++j) {
       if (dmatrix[i][j] <= threshold) {
-        edges.push({ from: i, to: j});
+        edges.push({ from: i, to: j });
       }
     }
   }
@@ -223,7 +223,7 @@ function min_dist_exists(dmatrix, min_dist) {
 function computeDistributionsAndDistanceMatrix() {
   const n = document.getElementById("number-students").value;
   const k = document.getElementById("number-grades").value;
-  const analyzeGpa = document.getElementById("analyze-gpa").checked ? 1 : 0;
+
   console.log(
     "As distributions, computing all weak compositions of " +
       n +
@@ -231,7 +231,7 @@ function computeDistributionsAndDistanceMatrix() {
       k +
       " parts."
   );
-  getCompositionsAndDistMatrixFromBackend(n, k, analyzeGpa);
+  getCompositionsAndDistMatrixFromBackend(n, k);
 }
 
 function analyze() {
