@@ -136,7 +136,7 @@ function getNodesDS(dmatrix) {
 function getEdgesDS(dmatrix, threshold) {
   let edges = [];
   for (let i = 0; i < dmatrix.length; ++i) {
-    for (let j = i + 1; j < dmatrix.length; ++j) {
+    for (let j = i + 1; j < dmatrix[i].length; ++j) {
       if (dmatrix[i][j] < threshold) {
         edges.push({ from: i, to: j });
       }
