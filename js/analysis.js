@@ -5,7 +5,7 @@ let gpa_dist_matrix = null;
 const NODE_COLOR = "#ffffff";
 const COMBINED_EDGE_COLOR = "#e34b4b";
 const GPA_EDGE_COLOR = "#3895f2";
-const URL = "http://localhost:8080/"; //"https://earth-mover-310304.uc.r.appspot.com/";
+const URL = "https://earth-mover-310304.uc.r.appspot.com/";
 
 function initialize() {
   resizeCanvas();
