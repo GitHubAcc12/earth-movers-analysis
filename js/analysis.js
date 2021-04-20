@@ -68,7 +68,7 @@ function plotGraph(backend_response) {
   }
   // Show mean and median
   const wrapper = document.getElementById("analysis-wrapper");
-  const analyzeGpa = 0;// document.getElementById("analyze-gpa").checked ? 1 : 0;
+  const analyzeGpa = 0; // document.getElementById("analyze-gpa").checked ? 1 : 0;
   wrapper.style.visibility = "visible";
   const mean_output = document.getElementById("mean-output");
   const median_output = document.getElementById("median-output");
@@ -90,10 +90,15 @@ function plotGraph(backend_response) {
 
   let options = {
     physics: {
-      enabled: false,
+      enabled: true,
+      stabilization: {
+        enabled: true,
+        //iterations: 20000,
+      },
     },
     layout: {
-      improvedLayout: false,
+      improvedLayout: true,
+      randomSeed: "0.26826403120802755:1618885757742",
     },
     edges: {
       smooth: false,
@@ -109,7 +114,8 @@ function plotGraph(backend_response) {
     network.destroy();
   }
   network = new vis.Network(canvas, data, options);
-  network.stabilize(2000);
+  //network.stabilize(2000);
+  console.log(network.getSeed());
 }
 
 function getCombinedEdges(dmatrix1, dmatrix2, threshold) {
