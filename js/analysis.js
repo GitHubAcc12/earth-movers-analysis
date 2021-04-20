@@ -68,7 +68,7 @@ function plotGraph(backend_response) {
   }
   // Show mean and median
   const wrapper = document.getElementById("analysis-wrapper");
-  const analyzeGpa = document.getElementById("analyze-gpa").checked ? 1 : 0;
+  const analyzeGpa = 0;// document.getElementById("analyze-gpa").checked ? 1 : 0;
   wrapper.style.visibility = "visible";
   const mean_output = document.getElementById("mean-output");
   const median_output = document.getElementById("median-output");
